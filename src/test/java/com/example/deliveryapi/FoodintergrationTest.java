@@ -103,7 +103,6 @@ class FoodIntegrationTest {
         void test1() throws JsonProcessingException {
             // given
             List<FoodDto> foodsRequest = new ArrayList<>();
-
             // 음식2 추가
             foodsRequest.add(food2);
 
@@ -218,6 +217,7 @@ class FoodIntegrationTest {
             List<FoodDto> foodsRequest = new ArrayList<>();
             // 음식1 추가
             foodsRequest.add(food1);
+
             String requestBody = mapper.writeValueAsString(foodsRequest);
             HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
@@ -229,6 +229,8 @@ class FoodIntegrationTest {
                     Object.class);
 
             // then
+            assertEquals(HttpStatus.OK, response.getStatusCode());
+            assertNull(response.getBody());
         }
 
         @Test

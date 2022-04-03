@@ -16,21 +16,18 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class FoodController {
-    private final FoodRepository foodRepository;
-    private final RestaurantRepository restaurantRepository;
     private final FoodService foodService;
 
     @GetMapping("/restaurant/{restaurantId}/foods")
-    public List<Food> getFood(@PathVariable Long restaurantId){
-        List<Food> foods = restaurantRepository.getById(restaurantId).getFoods();
-        return foods;
+    public FoodDto[] getFood(@PathVariable Long restaurantId) {
+        return foodService.get(restaurantId);
     }
-
 
 
     //음식점 ID 및 음식 정보 입력받아 등록
     @PostMapping("/restaurant/{restaurantId}/food/register")
-    public ResponseEntity postFood(@RequestBody FoodDto dto , @PathVariable Long restaurantId){
-        return new ResponseEntity<>(foodService.save(dto , restaurantId) , HttpStatus.OK);
+    public ResponseEntity postFood(@PathVariable Long restaurantId , @RequestBody List<Food> dto) {
+        foodService.save(dto,restaurantId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

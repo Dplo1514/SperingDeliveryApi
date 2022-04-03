@@ -38,5 +38,6 @@ public class Food {
         this.id = foodDto.getId();
         this.name = foodDto.getName();
         this.price = foodDto.getPrice();
+        this.restaurant = foodDto.getRestaurant();
     }
 }

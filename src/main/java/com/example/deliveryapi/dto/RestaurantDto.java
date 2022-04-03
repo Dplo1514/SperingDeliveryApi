@@ -1,5 +1,6 @@
 package com.example.deliveryapi.dto;
 
+import com.example.deliveryapi.domain.Food;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,8 @@ public class RestaurantDto {
     private int minOrderPrice;
 
     private int deliveryFee;
+
+    private Food food;
 
 }
 
