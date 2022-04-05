@@ -23,18 +23,25 @@ public class FoodService {
         Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(
                 () -> new IllegalArgumentException("음식점이 존재하지 않습니다.")
         );
-
-        List<Food> getFood = restaurant.getFoods();
-        FoodDto[] foodDtos = new FoodDto[getFood.size()];
-        Arrays.fill(foodDtos, getFood);
-
+        //1 해당 레스토랑의 food를 List로 가져온다.
+        List<Food> RestaurantfoodList = restaurant.getFoods();
+        //2가져온 foodList를 foodDto에 build를통해 할당
+        FoodDto[] foodDtos = new FoodDto[RestaurantfoodList.size()];
+        for (int i = 0; i < foodDtos.length; i++) {
+            foodDtos[i] =
+                    foodDtos[i].builder()
+                            .id(RestaurantfoodList.get(i).getId())
+                            .name(RestaurantfoodList.get(i).getName())
+                            .price(RestaurantfoodList.get(i).getPrice())
+                            .build();
+        }
         return foodDtos;
     }
 
     @Transactional
     public void save(List<Food> dto, Long idx) {
         //클라이언트에서 보내준 음식점의 id로 음식점을 찾는다.
-        Restaurant restaurants = restaurantRepository.findById(idx).orElseThrow(()->
+        Restaurant restaurants = restaurantRepository.findById(idx).orElseThrow(() ->
                 new IllegalArgumentException("음식점이 존재하지 않습니다."));
         //음식점의 id값으로 찾은 음식점의 food의 이름을 찾아 list로 만들어준다.
         List<Food> alreadyRestaurantFood = new ArrayList<>(restaurants.getFoods());
@@ -58,13 +65,12 @@ public class FoodService {
                     .build();
             //Input값 food와 기존값의 비교를 위하여 새로운 리스트에 할당
             newFoodName.add(foodDto.getName());
+            ValidCheckFood(food, alreadyRestaurnatFoodName, newFoodName);
+            foodRepository.save(food);
         }
-
-        foodValid(food, alreadyRestaurnatFoodName, newFoodName);
-        foodRepository.save(food);
     }
 
-    private void foodValid(Food food, List<String> alreadyRestaurantFoodName, List<String> newFoodName) {
+    private void ValidCheckFood(Food food, List<String> alreadyRestaurantFoodName, List<String> newFoodName) {
 
         //동일 음식 등록 에러
         Set<String> matchFoodName = new HashSet<>(newFoodName);
@@ -85,7 +91,6 @@ public class FoodService {
             throw new IllegalArgumentException("입력 단위 오류 에러");
         }
     }
-
 
 }
 

@@ -19,8 +19,8 @@ public class FoodController {
     private final FoodService foodService;
 
     @GetMapping("/restaurant/{restaurantId}/foods")
-    public FoodDto[] getFood(@PathVariable Long restaurantId) {
-        return foodService.get(restaurantId);
+    public ResponseEntity<FoodDto[]> getFood(@PathVariable Long restaurantId) {
+        return new ResponseEntity<>(foodService.get(restaurantId), HttpStatus.OK);
     }
 
 

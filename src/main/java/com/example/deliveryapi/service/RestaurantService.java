@@ -35,11 +35,11 @@ public class RestaurantService {
         }
 
         if (dto.getMinOrderPrice() < 1000 || dto.getMinOrderPrice() > 100000){
-            throw new RuntimeException("테스트");
+            throw new RuntimeException("최소 주문 가격 설정에러");
         }
 
         if (dto.getDeliveryFee() < 0 || dto.getDeliveryFee() > 10000){
-            throw new RuntimeException("테스트2");
+            throw new RuntimeException("배달비 설정 에러");
         }
     }
 }
