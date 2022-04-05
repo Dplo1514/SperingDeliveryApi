@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDeleteAll;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -368,7 +367,6 @@ class OrderIntegrationTest {
         OrderDto orderDto = response.getBody()[0];
         // 음식점 이름
         assertEquals(registeredRestaurant.name, orderDto.restaurantName);
-
         // 음식 주문 확인
         assertEquals(3, orderDto.foods.size());
         // 음식1 주문 확인

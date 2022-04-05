@@ -22,7 +22,7 @@ public class OrderController {
         return new ResponseEntity(orderService.post(orderDto) , HttpStatus.OK);
     }
     @GetMapping("/orders")
-    public Order[] getOrder(){
+    public OrderDto[] getOrder(){
         return orderService.get();
     }
 }

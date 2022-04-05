@@ -3,6 +3,7 @@ package com.example.deliveryapi.dto;
 import com.example.deliveryapi.domain.FoodOrders;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
 public class OrderDto {
 
     private String restaurantName;
